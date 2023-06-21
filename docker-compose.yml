@@ -8,7 +8,7 @@ services:
     ports:
       - "5432:5432"
     env_file:
-      - ./.env
+      - ./.env.db
     volumes:
       - db-data:/var/lib/postgresql/data
 
@@ -23,7 +23,7 @@ services:
     ports:
       - "8888:8888"
     env_file:
-      - ./.env
+      - ./.env.server
     depends_on:
       - database
 
