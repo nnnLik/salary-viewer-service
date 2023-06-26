@@ -6,7 +6,7 @@ from pydantic import EmailStr
 from fastapi_users import schemas, models
 
 
-class UserRead(schemas.BaseUser[uuid.UUID]):
+class EmployeeRead(schemas.BaseUser[uuid.UUID]):
     id: models.ID
     first_name: str
     last_name: str
@@ -17,7 +17,7 @@ class UserRead(schemas.BaseUser[uuid.UUID]):
     is_verified: bool = False
 
 
-class UserCreate(schemas.BaseUserCreate):
+class EmployeeCreate(schemas.BaseUserCreate):
     first_name: str
     last_name: str
     birth_year: int
@@ -28,7 +28,7 @@ class UserCreate(schemas.BaseUserCreate):
     is_verified: Optional[bool] = False
 
 
-class UserUpdate(schemas.BaseUserUpdate):
+class EmployeeUpdate(schemas.BaseUserUpdate):
     password: Optional[str]
     email: Optional[EmailStr]
     is_active: Optional[bool]
