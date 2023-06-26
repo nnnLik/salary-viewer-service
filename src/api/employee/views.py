@@ -5,7 +5,7 @@ from src.repositories.employee import (
     get_employee_info_repository,
 )
 from src.repositories.position import PositionRepository, get_position_repository
-from src.schemas.employee import EmployeeInfoCreate
+from src.schemas.employee import EmployeeInfoCreate, SalaryResponse
 from src.models.employee import Employee
 from src.api.auth.services import current_active_user
 from src.core.exceptions import PositionNotFoundError
@@ -36,3 +36,11 @@ async def update_employee_info(
 ):
     await employee_info_repo.update_employee_info(employee_info_data, employee)
     return {"message": f"Employee info updated for {employee.email}."}
+
+
+@router.get("/salary", status_code=status.HTTP_200_OK, response_model=SalaryResponse)
+async def get_employee_salary(
+    employee: Employee = Depends(current_active_user),
+    employee_repo: EmployeeRepository = Depends(get_employee_info_repository),
+):
+    return await employee_repo.get_employee_salary(employee)
