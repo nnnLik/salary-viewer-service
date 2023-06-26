@@ -12,7 +12,9 @@ from src.models.employee import Employee
 
 from config.settings import settings
 
-cookie_transport: CookieTransport = CookieTransport(cookie_max_age=3600)
+cookie_transport: CookieTransport = CookieTransport(
+    cookie_name="shifttoken", cookie_max_age=3600
+)
 SECRET: str = settings.server.SECRET
 
 

@@ -8,9 +8,6 @@ from fastapi_users import schemas, models
 
 class EmployeeRead(schemas.BaseUser[uuid.UUID]):
     id: models.ID
-    first_name: str
-    last_name: str
-    birth_year: int
     email: EmailStr
     is_active: bool = True
     is_superuser: bool = False
@@ -18,9 +15,6 @@ class EmployeeRead(schemas.BaseUser[uuid.UUID]):
 
 
 class EmployeeCreate(schemas.BaseUserCreate):
-    first_name: str
-    last_name: str
-    birth_year: int
     email: EmailStr
     password: str
     is_active: Optional[bool] = True
