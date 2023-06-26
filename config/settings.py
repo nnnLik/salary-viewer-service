@@ -29,6 +29,7 @@ def load_settings() -> Settings:
 
     settings.server.HOST = env_values.get("HOST")
     settings.server.PORT = int(env_values.get("PORT"))
+    settings.server.SECRET = env_values.get("SECRET")
 
     settings.database.DB_HOST = env_values.get("DB_HOST")
     settings.database.DB_PORT = int(env_values.get("DB_PORT"))

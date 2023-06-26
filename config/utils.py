@@ -6,7 +6,8 @@ from fastapi_users.db import SQLAlchemyUserDatabase
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from models.employee import Employee
+from src.models.employee import Employee
+
 from .database import async_session_maker
 
 
