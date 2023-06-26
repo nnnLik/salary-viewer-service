@@ -22,13 +22,6 @@ class EmployeeManager(UUIDIDMixin, BaseUserManager[Employee, uuid.UUID]):
     ):
         logger.info(f"Employee {employee.id} has registered.")
 
-    async def on_after_forgot_password(
-        self, employee: Employee, token: str, request: Optional[Request] = None
-    ):
-        logger.info(
-            f"Employee {employee.id} has forgot their password. Reset token: {token}."
-        )
-
 
 async def get_user_manager(user_db=Depends(get_employee_db)):
     yield EmployeeManager(user_db)
