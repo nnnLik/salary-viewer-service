@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, status
 
-from src.repositories.employee_info import (
-    EmployeeInfoRepository,
+from src.repositories.employee import (
+    EmployeeRepository,
     get_employee_info_repository,
 )
 from src.repositories.position import PositionRepository, get_position_repository
-from src.schemas.employee_info import EmployeeInfoCreate
+from src.schemas.employee import EmployeeInfoCreate, SalaryResponse
 from src.models.employee import Employee
 from src.api.auth.services import current_active_user
 from src.core.exceptions import PositionNotFoundError
@@ -17,7 +17,7 @@ router = APIRouter()
 async def fill_employee_info(
     employee_info_data: EmployeeInfoCreate,
     employee: Employee = Depends(current_active_user),
-    employee_info_repo: EmployeeInfoRepository = Depends(get_employee_info_repository),
+    employee_info_repo: EmployeeRepository = Depends(get_employee_info_repository),
     position_repo: PositionRepository = Depends(get_position_repository),
 ):
     position = await position_repo.get_position_by_id(employee_info_data.position_id)
@@ -32,7 +32,15 @@ async def fill_employee_info(
 async def update_employee_info(
     employee_info_data: EmployeeInfoCreate,
     employee: Employee = Depends(current_active_user),
-    employee_info_repo: EmployeeInfoRepository = Depends(get_employee_info_repository),
+    employee_info_repo: EmployeeRepository = Depends(get_employee_info_repository),
 ):
     await employee_info_repo.update_employee_info(employee_info_data, employee)
     return {"message": f"Employee info updated for {employee.email}."}
+
+
+@router.get("/salary", status_code=status.HTTP_200_OK, response_model=SalaryResponse)
+async def get_employee_salary(
+    employee: Employee = Depends(current_active_user),
+    employee_repo: EmployeeRepository = Depends(get_employee_info_repository),
+):
+    return await employee_repo.get_employee_salary(employee)
