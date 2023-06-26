@@ -3,7 +3,12 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from config.settings import settings
+from config.logger import Logger
+
 from src.api.routers import routes
+
+logger = Logger().logger
 
 
 def setup_settings(app: FastAPI) -> None:
@@ -30,4 +35,7 @@ def start_application() -> FastAPI:
 app: FastAPI = start_application()
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8888)
+    HOST = settings.server.HOST
+    PORT = settings.server.PORT
+
+    uvicorn.run(app, host=HOST, port=PORT)
