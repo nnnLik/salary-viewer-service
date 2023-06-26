@@ -24,9 +24,6 @@ class Employee(SQLAlchemyBaseUserTableUUID, Base):
     __tablename__ = "employee"
 
     id: Mapped[UUID_ID] = mapped_column(GUID, primary_key=True, default=uuid.uuid4)
-    first_name: str = Column(String(length=255), nullable=True)
-    last_name: str = Column(String(length=255), nullable=True)
-    birth_year: int = Column(Integer, nullable=True)
     email: Mapped[str] = mapped_column(
         String(length=320), unique=True, index=True, nullable=False
     )
@@ -34,24 +31,27 @@ class Employee(SQLAlchemyBaseUserTableUUID, Base):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     is_superuser: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    employee_info: Mapped["EmployeeInfo"] = relationship(
+        "EmployeeInfo", back_populates="employee", uselist=False
+    )
 
 
 class EmployeeInfo(Base):
     __tablename__ = "employee_info"
 
     id: int = Column(Integer, primary_key=True, index=True)
-    employment_date: int = Column(TIMESTAMP, default=datetime.utcnow)
-    social_media: str = Column(String(length=255), nullable=True)
-    gitlab_link: str = Column(String(length=255), nullable=True)
+    first_name: str = Column(String(length=255), nullable=True)
+    last_name: str = Column(String(length=255), nullable=True)
+    birth_year: int = Column(Integer, nullable=True)
+    employment_date: datetime = Column(TIMESTAMP, default=datetime.utcnow)
     position_id: int = Column(Integer, ForeignKey("position.id"), nullable=True)
     position: Mapped["Position"] = relationship(
         "Position", back_populates="employee_info"
     )
-    salary: float = Column(Float, nullable=True)
-    experience: int = Column(Integer, nullable=True)
-
-    user_id: UUID = Column(UUID(as_uuid=True), ForeignKey("employee.id"))
-    user: Mapped[Employee] = relationship("Employee", back_populates="employee_info")
+    employee_id: UUID = Column(UUID(as_uuid=True), ForeignKey("employee.id"))
+    employee: Mapped[Employee] = relationship(
+        "Employee", back_populates="employee_info"
+    )
 
 
 class Position(Base):
@@ -59,6 +59,7 @@ class Position(Base):
 
     id: int = Column(Integer, primary_key=True, index=True)
     name: str = Column(String(length=255), nullable=True, unique=True)
+    base_salary: float = Column(Float, nullable=True)
 
     employee_info: Mapped[EmployeeInfo] = relationship(
         "EmployeeInfo", uselist=False, back_populates="position"
