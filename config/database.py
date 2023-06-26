@@ -19,8 +19,7 @@ DATABASE_URL: str = (
 engine = create_async_engine(DATABASE_URL)
 Session = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
 
-
-async_session_maker = Session()
+async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 
 class Base(DeclarativeBase):
