@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from fastapi import Depends
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -11,7 +11,7 @@ from src.core.exceptions import (
     EmployeeInfoExistsError,
     PositionNotFoundError,
 )
-from src.schemas.employee import EmployeeInfoCreate
+from src.schemas.employee import EmployeeInfoCreate, SalaryResponse
 
 from .base import BaseRepository
 
@@ -63,35 +63,49 @@ class EmployeeRepository(BaseRepository):
             raise PositionNotFoundError()
 
         employment_date = employee_info.employment_date
-        years_employed = (datetime.utcnow() - employment_date).days // 365
+        print(employment_date)
+        print(date.today())
+
+        years_employed = (date.today() - employment_date).days // 365
         base_salary = position.base_salary
 
         salary = base_salary * (1.2**years_employed)
+
         return salary
 
-    async def get_employee_salary(self, employee: Employee):
+    async def get_employee_salary(self, employee: Employee) -> SalaryResponse:
         employee_info = await self.get_employee_info(employee.id)
         if not employee_info:
             raise EmployeeInfoNotFoundError()
 
         salary = await self.calculate_salary(employee_info)
 
-        employment_date = employee_info.employment_date
-        next_increase_date = employment_date + timedelta(days=365)
-        days_until_increase = (next_increase_date - datetime.utcnow()).days
+        employment_year = employee_info.employment_date.year
+        current_year = datetime.utcnow().year
 
-        return {
-            "id": employee_info.id,
-            "first_name": employee_info.first_name,
-            "last_name": employee_info.last_name,
-            "birth_year": employee_info.birth_year,
-            "employment_date": employee_info.employment_date,
-            "position_id": employee_info.position_id,
-            "employee_id": str(employee_info.employee_id),
-            "salary": salary,
-            "next_increase_date": next_increase_date,
-            "days_until_increase": days_until_increase,
-        }
+        total_increases = current_year - employment_year
+
+        next_increase_date = employee_info.employment_date + timedelta(
+            days=365 * total_increases
+        )
+        days_until_increase = (next_increase_date - date.today()).days
+
+        if days_until_increase < 0:
+            next_increase_date += timedelta(days=365)
+            days_until_increase = (next_increase_date - date.today()).days
+
+        return SalaryResponse(
+            id=employee_info.id,
+            first_name=employee_info.first_name,
+            last_name=employee_info.last_name,
+            birth_year=employee_info.birth_year,
+            employment_date=employee_info.employment_date,
+            position_id=employee_info.position_id,
+            employee_id=str(employee_info.employee_id),
+            salary=salary,
+            next_increase_date=next_increase_date,
+            days_until_increase=days_until_increase,
+        )
 
 
 async def get_employee_info_repository(db: AsyncSession = Depends(get_async_session)):
