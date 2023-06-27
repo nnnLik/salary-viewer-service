@@ -1,77 +1,77 @@
-# REST-сервис для просмотра зарплаты и даты следующего повышения
-Это репозиторий содержит реализацию REST-сервиса, который позволяет просматривать текущую зарплату и дату следующего повышения для каждого
+# REST service to view the salary and the date of the next raise
+This repository contains an implementation of a REST service that allows you to view the current salary and date of the next raise for each
 #
-### Технологии
-Сервис реализован с использованием асинхронного подключения к базе данных при помощи SQLAlchemy и Asyncpg. Также используется асинхронный pytest для написания тестов. Регистрация и авторизация реализованна при помощи библиотеки [`fastapi_users`](https://fastapi-users.github.io/fastapi-users/12.0/).
+### Technologies.
+The service is implemented using asynchronous database connections using SQLAlchemy and Asyncpg. Asynchronous pytest is also used to write tests. Registration and authorization is implemented using the [`fastapi_users`] library (https://fastapi-users.github.io/fastapi-users/12.0/).
 #
-### Установка и Запуск
-1. Склонируйте репозиторий:
-    ```sh
+### Installation and Startup
+1. Clone the repository:
+    ``sh
     git clone git@gitlab.com:nnnLik/shift-ml-testtask.git
     ```
-2. Перейдите в каталог проекта:
-    ```sh
+2. Navigate to the project directory:
+    ``sh
     cd shift-ml-testtask
     ```
-3. Создайте .env.db и env.server. Переменные нужные для запуска есть в файле .env.example
+3. Create .env.db and env.server. You will find the variables in the .env.example file.
 
-4. Запустите сервис и базу данных в Docker с помощью Docker Compose:
-    ```sh
+4. Run the service and database in Docker with Docker Compose:
+    ``sh
     docker-compose up --build
     ```
-5. После успешного запуска, сервис будет доступен по адресу:
+5. After a successful start, the service will be available at:
     ```
     http://localhost:8888
     ```
 #
-### Документация API
-Документация по API сервиса доступна по адресу:
+### API documentation
+Documentation on the service's API is available at ``:
 ```
 http://localhost:8888/docs
 ```
 #
-##### __Регистрация пользователя__
-Для получения доступа к информации о зарплате и дате следующего повышения необходимо зарегистрировать пользователя. Отправьте `POST`-запрос на эндпоинт `/auth/jwt/register` со следующими данными в теле запроса:
-```json
+##### __User Registration__
+You must register a user to access salary information and the date of the next raise. Send a `POST` request to the `/auth/jwt/register` endpoint with the following data in the body of the request:
+``json
 {
-  "email": "example@example.com",
-  "password": "secret",
-  "is_active": true,
-  "is_superuser": false,
+  { "email": "example@example.com",
+  { "password": "secret",
+  { "is_active": true,
+  { "is_superuser": false,
   "is_verified": false
 }
 ```
-##### __Создать должность__
-Для создания должности отправьте `POST`-запрос на эндпоинт `/position/positions`. Передайте следующие данные в теле запроса:
-```json
+##### __Create post__
+To create a position, send a `POST` query to the `/position/positions` endpoint. Pass the following data in the body of the request:
+``json
 {
   "id": 1,
-  "name": "Front End Developer",
-  "base_salary": 600
+  { "name": "front end developer",
+  { "base_salary": 600
 }
 ```
-##### __Заполнение данных пользователя__
-После успешной регистрации, заполните информацию о пользователе отправив `POST`-запрос на эндпоинт `/employee/info`. В заголовке запроса укажите авторизационный токен:
+##### __Filling in user information__
+After successful registration, fill in the user information by sending a `POST` query to endpoint `/employee/info`. In the header of the request specify the authorization token:
 ```
 Authorization: Bearer <token>
 ```
-Передайте следующие данные в теле запроса:
-```json
+Pass the following data in the body of the request:
+``json
 {
-  "first_name": "Big",
-  "last_name": "Dude",
+  "``first_name'': ``Big'',
+  "``last_name'': ``Dude'',
   "birth_year": 1900,
   "position_id": 1
 }
 ```
-##### __Получение информации о зарплате__
-Для получения информации о зарплате и дате следующего повышения отправьте `GET`-запрос на эндпоинт `/employee/salary`. В заголовке запроса укажите авторизационный токен:
+##### __Get Salary Information__
+To get salary information and the date of the next raise, send a `GET` query to the `/employee/salary` endpoint. Specify the authorization token in the header of the request:
 ```
 Authorization: Bearer <token>
 ```
 
-В ответ вы получите следующее:
-```json
+In response you will get the following:
+``json
 {
   "id": int,
   "first_name": str,
@@ -82,20 +82,20 @@ Authorization: Bearer <token>
   "employee_id": str,
   "salary": int,
   "next_increase_date": str,
-  "days_until_increase": int
+  "days_until_increase": int.
 }
 ```
 #
-### Тесты:
-1. Для запуска теста надо будет установить все зависимости:
-    ```sh
+### Tests:
+1. To run the test you will need to install all the dependencies:
+    ``sh
     poetry install
     ```
-2. Запуск Тестов:
-    ```sh
+2. To run the Tests:
+    ``sh
     pytest -vv tests/
     ```
 
 ### TODO:
-* Фикстуры данных
-* Админку
+* Data fixtures
+* Admin
