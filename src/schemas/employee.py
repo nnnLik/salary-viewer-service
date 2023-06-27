@@ -16,7 +16,7 @@ class SalaryResponse(BaseModel):
     last_name: Optional[str]
     birth_year: Optional[int]
     employment_date: date
-    position_id: Optional[int]
+    position: Optional[str]
     employee_id: str
     salary: float
     next_increase_date: Optional[date]
