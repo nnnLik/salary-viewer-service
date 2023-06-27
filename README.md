@@ -2,7 +2,7 @@
 This repository contains an implementation of a REST service that allows you to view the current salary and date of the next raise for each
 #
 ### Technologies.
-The service is implemented using asynchronous database connections using SQLAlchemy and Asyncpg. Asynchronous pytest is also used to write tests. Registration and authorization is implemented using the [`fastapi_users`] library (https://fastapi-users.github.io/fastapi-users/12.0/).
+The service is implemented using asynchronous database connections using SQLAlchemy and Asyncpg. Asynchronous pytest is also used to write tests. Registration and authorization is implemented using the [`fastapi_users`](https://fastapi-users.github.io/fastapi-users/12.0/) library.
 #
 ### Installation and Startup
 1. Clone the repository:
