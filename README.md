@@ -92,4 +92,3 @@ Authorization: Bearer <token>
     ```sh
     pytest -vv tests/
     ```
-1. 
