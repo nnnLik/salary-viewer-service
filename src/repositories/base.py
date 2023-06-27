@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
@@ -28,6 +28,7 @@ class BaseRepository:
         await self.db.refresh(item)
         return item
 
-    async def delete(self, item):
-        self.db.delete(item)
+    async def delete(self, item_id):
+        query = delete(self.model).where(self.model.id == item_id)
+        await self.db.execute(query)
         await self.db.commit()
