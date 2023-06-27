@@ -34,10 +34,10 @@ http://localhost:8888/docs
 You must register a user to access salary information and the date of the next raise. Send a `POST` request to the `/auth/jwt/register` endpoint with the following data in the body of the request:
 ```json
 {
-  { "email": "example@example.com",
-  { "password": "secret",
-  { "is_active": true,
-  { "is_superuser": false,
+  "email": "example@example.com",
+  "password": "secret",
+  "is_active": true,
+  "is_superuser": false,
   "is_verified": false
 }
 ```
@@ -46,8 +46,8 @@ To create a position, send a `POST` query to the `/position/positions` endpoint.
 ```json
 {
   "id": 1,
-  { "name": "front end developer",
-  { "base_salary": 600
+  "name": "front end developer",
+  "base_salary": 600
 }
 ```
 ##### __Filling in user information__
@@ -58,8 +58,8 @@ Authorization: Bearer <token>
 Pass the following data in the body of the request:
 ```json
 {
-  "``first_name'': ``Big'',
-  "``last_name'': ``Dude'',
+  "first_name'': "Big",
+  "last_name'': "Dude",
   "birth_year": 1900,
   "position_id": 1
 }
