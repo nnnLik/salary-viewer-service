@@ -6,17 +6,17 @@ The service is implemented using asynchronous database connections using SQLAlch
 #
 ### Installation and Startup
 1. Clone the repository:
-    ``sh
+    ```sh
     git clone git@gitlab.com:nnnLik/shift-ml-testtask.git
     ```
 2. Navigate to the project directory:
-    ``sh
+    ```sh
     cd shift-ml-testtask
     ```
 3. Create .env.db and env.server. You will find the variables in the .env.example file.
 
 4. Run the service and database in Docker with Docker Compose:
-    ``sh
+    ```sh
     docker-compose up --build
     ```
 5. After a successful start, the service will be available at:
@@ -25,14 +25,14 @@ The service is implemented using asynchronous database connections using SQLAlch
     ```
 #
 ### API documentation
-Documentation on the service's API is available at ``:
+Documentation on the service's API is available at:
 ```
 http://localhost:8888/docs
 ```
 #
 ##### __User Registration__
 You must register a user to access salary information and the date of the next raise. Send a `POST` request to the `/auth/jwt/register` endpoint with the following data in the body of the request:
-``json
+```json
 {
   { "email": "example@example.com",
   { "password": "secret",
@@ -43,7 +43,7 @@ You must register a user to access salary information and the date of the next r
 ```
 ##### __Create post__
 To create a position, send a `POST` query to the `/position/positions` endpoint. Pass the following data in the body of the request:
-``json
+```json
 {
   "id": 1,
   { "name": "front end developer",
@@ -56,7 +56,7 @@ After successful registration, fill in the user information by sending a `POST` 
 Authorization: Bearer <token>
 ```
 Pass the following data in the body of the request:
-``json
+```json
 {
   "``first_name'': ``Big'',
   "``last_name'': ``Dude'',
@@ -71,7 +71,7 @@ Authorization: Bearer <token>
 ```
 
 In response you will get the following:
-``json
+```json
 {
   "id": int,
   "first_name": str,
@@ -88,11 +88,11 @@ In response you will get the following:
 #
 ### Tests:
 1. To run the test you will need to install all the dependencies:
-    ``sh
+    ```sh
     poetry install
     ```
 2. To run the Tests:
-    ``sh
+    ```sh
     pytest -vv tests/
     ```
 
