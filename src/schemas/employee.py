@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from datetime import datetime
+from datetime import date
 from typing import Optional
 
 
@@ -15,9 +15,9 @@ class SalaryResponse(BaseModel):
     first_name: Optional[str]
     last_name: Optional[str]
     birth_year: Optional[int]
-    employment_date: datetime
-    position_id: Optional[int]
+    employment_date: date
+    position: Optional[str]
     employee_id: str
     salary: float
-    next_increase_date: Optional[datetime]
+    next_increase_date: Optional[date]
     days_until_increase: Optional[int]

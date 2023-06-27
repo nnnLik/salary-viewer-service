@@ -1,8 +1,8 @@
-from datetime import datetime
+from datetime import date
 import uuid
 
 from sqlalchemy import (
-    TIMESTAMP,
+    Date,
     UUID,
     Boolean,
     Column,
@@ -43,7 +43,7 @@ class EmployeeInfo(Base):
     first_name: str = Column(String(length=255), nullable=True)
     last_name: str = Column(String(length=255), nullable=True)
     birth_year: int = Column(Integer, nullable=True)
-    employment_date: datetime = Column(TIMESTAMP, default=datetime.utcnow)
+    employment_date: date = Column(Date, default=date.today)
     position_id: int = Column(Integer, ForeignKey("position.id"), nullable=True)
     position: Mapped["Position"] = relationship(
         "Position", back_populates="employee_info"
