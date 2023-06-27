@@ -181,7 +181,7 @@ uvloop = ["uvloop (>=0.15.2)"]
 name = "certifi"
 version = "2023.5.7"
 description = "Python package for providing Mozilla's CA Bundle."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 files = [
@@ -435,14 +435,14 @@ sqlalchemy = ["fastapi-users-db-sqlalchemy (>=4.0.0)"]
 
 [[package]]
 name = "fastapi-users-db-sqlalchemy"
-version = "5.0.0"
+version = "6.0.0"
 description = "FastAPI Users database adapter for SQLAlchemy"
 category = "main"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "fastapi_users_db_sqlalchemy-5.0.0-py3-none-any.whl", hash = "sha256:7c9965555e94335d432f82f555b523809e1c37ed3ccd6ee1c7c9c0ae3240ea85"},
-    {file = "fastapi_users_db_sqlalchemy-5.0.0.tar.gz", hash = "sha256:013c2800ce1cb5149acbd1d7eb8596e4aa7dd578395c40df951b666a121388c5"},
+    {file = "fastapi_users_db_sqlalchemy-6.0.0-py3-none-any.whl", hash = "sha256:1e2edc2fb8b2c7896fcb5591ff120f613ea56d008b57f0e94e0bc040363f455b"},
+    {file = "fastapi_users_db_sqlalchemy-6.0.0.tar.gz", hash = "sha256:347c709ebb5963ed475f8c671166717d8e47897dec595ede02a95a8f607fa1ff"},
 ]
 
 [package.dependencies]
@@ -556,7 +556,7 @@ files = [
 name = "httpcore"
 version = "0.17.2"
 description = "A minimal low-level HTTP client."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -578,7 +578,7 @@ socks = ["socksio (>=1.0.0,<2.0.0)"]
 name = "httpx"
 version = "0.24.1"
 description = "The next generation HTTP client."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -1224,4 +1224,4 @@ standard = ["colorama (>=0.4)", "httptools (>=0.5.0)", "python-dotenv (>=0.13)",
 [metadata]
 lock-version = "2.0"
 python-versions = "3.10.9"
-content-hash = "0735a32d487781814c518c637b7d1b98835d807ea1ea53c2aa59d23c8cc9e3d0"
+content-hash = "7fdd17b4f7e55f37c5afac5e5edc55ad5716a0e3019f73199de7b5edb785ab13"
