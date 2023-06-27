@@ -7,7 +7,7 @@ The service is implemented using asynchronous database connections using SQLAlch
 ### Installation and Startup
 1. Clone the repository:
     ```sh
-    git clone git@gitlab.com:nnnLik/shift-ml-testtask.git
+    git clone git@github.com:nnnLik/salary-viewer-service.git
     ```
 2. Navigate to the project directory:
     ```sh
