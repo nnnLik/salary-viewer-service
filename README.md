@@ -58,8 +58,8 @@ Authorization: Bearer <token>
 Pass the following data in the body of the request:
 ```json
 {
-  "first_name'': "Big",
-  "last_name'': "Dude",
+  "first_name": "Big",
+  "last_name": "Dude",
   "birth_year": 1900,
   "position_id": 1
 }
