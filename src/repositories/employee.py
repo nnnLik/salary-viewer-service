@@ -49,13 +49,16 @@ class EmployeeRepository(BaseRepository):
         if not existing_info:
             raise EmployeeInfoNotFoundError()
 
+        position = await self.db.get(Position, employee_info_data.position_id)
+        if not position:
+            raise PositionNotFoundError()
+
         existing_info.first_name = employee_info_data.first_name
         existing_info.last_name = employee_info_data.last_name
         existing_info.birth_year = employee_info_data.birth_year
         existing_info.position_id = employee_info_data.position_id
 
-        await self.session.commit()
-        await self.session.refresh(existing_info)
+        await self.update(existing_info)
 
     async def calculate_years_employed(self, employment_date: date) -> int:
         return (date.today() - employment_date).days // 365
@@ -81,7 +84,7 @@ class EmployeeRepository(BaseRepository):
         total_increases = current_year - employment_year
 
         next_increase_date = employment_date + timedelta(days=365 * total_increases)
-        if next_increase_date <= date.today():
+        if next_increase_date < date.today():
             next_increase_date += timedelta(days=365)
 
         return next_increase_date
